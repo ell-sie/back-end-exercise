@@ -1,5 +1,5 @@
 ### Get all categories
-GET http://localhost:3000/categories/89bc9512-5d34-4b72-a106-ae4ac2d41be7 HTTP/1.1
+GET http://localhost:3000/categories HTTP/1.1
 
 ### Create a new task
 POST http://localhost:3000/tasks HTTP/1.1
@@ -7,12 +7,12 @@ Content-Type: application/json
 
 {
   "title": "Test",
-  "description": "Test",
-  "categoryId": "8a7f86a6-754d-49dc-8bb6-648f1bd2fe18"
+  "description": "making a crud nestjs app",
+  "categoryId": "89bc9512-5d34-4b72-a106-ae4ac2d41be7"
 }
 
 
-### create cat
+### create a new category
 POST http://localhost:3000/categories HTTP/1.1
 Content-Type: application/json
 
@@ -20,4 +20,12 @@ Content-Type: application/json
   "name": "New Category"
 }
 
+### delete a category
+DELETE http://localhost:3000/categories/89bc9512-5d34-4b72-a106-ae4ac2d41be7
 
+
+### get all tasks
+GET  http://localhost:3000/tasks HTTP/1.1
+
+### get one task
+GET  http://localhost:3000/tasks/4dfd38d0-569e-4115-909d-6aacabc02522 HTTP/1.1

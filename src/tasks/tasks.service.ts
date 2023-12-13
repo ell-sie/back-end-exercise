@@ -20,23 +20,28 @@ export class TaskService {
     }
   }
 
-  async createTask(title: string, description: string, categoryId: string): Promise<Task> {
+  async createTask(
+    title: string,
+    description: string,
+    categoryId: string,
+  ): Promise<Task> {
     const id = uuid();
-    
+
     try {
       const category = await this.getCategoryById(categoryId);
 
-      const newTask: Task = { 
-        id, 
-        title, 
-        status: TaskStatus.OPEN , 
-        description, 
-        category 
+      const newTask: Task = {
+        id,
+        title,
+        status: TaskStatus.OPEN,
+        description,
+        category,
       };
 
       this.db.push(`/tasks/${id}`, newTask);
       return newTask;
     } catch (error) {
+      console.log(error)
       throw new NotFoundException('Category not found');
     }
   }
@@ -49,10 +54,11 @@ export class TaskService {
     }
   }
 
-  private getCategoryById(id: string): Promise<any> {
+  private async getCategoryById(id: string): Promise<any> {
     try {
-      return this.db.getData(`/categories/${id}`);
+      return await this.db.getIndex('/categories', id);
     } catch (error) {
+      // console.log(error)
       throw new NotFoundException(`Category with ID ${id} not found`);
     }
   }

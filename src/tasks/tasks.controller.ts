@@ -19,6 +19,8 @@ export class TasksController {
   @Post()
   async createTask(@Body() body: any): Promise<Task> {
     const { title, description, categoryId } = body;
+    console.log('----', body);
+
     return this.taskService.createTask(title, description, categoryId);
   }
 
