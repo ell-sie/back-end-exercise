@@ -36,9 +36,12 @@ export class CategoriesService {
   async delete(id: string): Promise<void> {
     // Retrieve tasks and then filter them
     const tasksObject = await this.db.getData('/tasks');
+    const categoryIndex = await this.db.getIndex('/categories', id)
+    console.log(categoryIndex)
     const tasks = Object.values(tasksObject);
-    const tasksForCategory = tasks.filter((task: any) => task.categoryId === id);
-
+    console.log(tasks,'========> tasks')
+    const tasksForCategory = tasks.filter((task: any) => task.category === categoryIndex);
+    console.log(tasksForCategory)
     if (tasksForCategory.length > 0) {
       // Tasks found for the category, return a ConflictException
       throw new ConflictException('Cannot delete category with associated tasks');

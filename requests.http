@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "title": "Test",
-  "description": "making a crud nestjs app",
+  "description": "app",
   "categoryId": "89bc9512-5d34-4b72-a106-ae4ac2d41be7"
 }
 
