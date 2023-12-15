@@ -14,6 +14,7 @@ export class CategoriesController {
   getAll(): Promise<Category[]> {
     return this.categoriesService.getAll();
   }
+  
 
   @Post()
   @ApiResponse({ status: 201, description: 'The category has been added successfully'})
