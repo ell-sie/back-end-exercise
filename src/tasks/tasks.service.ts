@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { JsonDB } from 'node-json-db';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
@@ -56,7 +56,12 @@ export class TaskService {
 
   private async getCategoryById(id: string): Promise<any> {
     try {
-      return await this.db.getIndex('/categories', id);
+      const category = await this.db.getIndex('/categories', id);
+      if(category < 0) {
+        throw new BadRequestException('Catagory was deleted');
+      }
+      console.log(category)
+      return category
     } catch (error) {
       // console.log(error)
       throw new NotFoundException(`Category with ID ${id} not found`);

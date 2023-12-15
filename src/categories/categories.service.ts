@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { JsonDB } from 'node-json-db';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
 import { Category } from 'src/entitites/category.entity';
+import { error } from 'console';
 
 @Injectable()
 export class CategoriesService {
@@ -12,9 +13,16 @@ export class CategoriesService {
     return this.db.getData('/categories');
   }
 
-  create(category: Category): Promise<Category> {
+  async create(category: Category): Promise<Category> {
+    const categories: Category [] = await this.db.getData('/categories');
+    const Cat = Object.values(categories);
+    console.log(Cat)
+    const sameName = Cat.find(cat => cat.name === category.name)
+    if(sameName){
+      throw new ConflictException('A category with this name already exists')
+    }
     category.id = uuidv4();
-    this.db.push('/categories[]', category);
+    this.db.push('/categories[]', category)
     return Promise.resolve(category);
   }
 
@@ -37,19 +45,18 @@ export class CategoriesService {
     // Retrieve tasks and then filter them
     const tasksObject = await this.db.getData('/tasks');
     const categoryIndex = await this.db.getIndex('/categories', id)
-    console.log(categoryIndex)
     const tasks = Object.values(tasksObject);
-    console.log(tasks,'========> tasks')
     const tasksForCategory = tasks.filter((task: any) => task.category === categoryIndex);
-    console.log(tasksForCategory)
     if (tasksForCategory.length > 0) {
       // Tasks found for the category, return a ConflictException
       throw new ConflictException('Cannot delete category with associated tasks');
     }
 
     // No tasks found, proceed with category deletion
-    const index = this.db.getIndex('/categories', id);
+    const index = await this.db.getIndex('/categories', id);
+    console.log(index)
     this.db.delete(`/categories[${index}]`);
   }
+
 }
 
