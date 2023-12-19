@@ -2,16 +2,16 @@
 GET http://localhost:3000/categories HTTP/1.1
 
 ### Get on category
-GET http://localhost:3000/categories/3cc3b27e-4a61-41cb-846b-6b978c5bfe37 HTTP/1.1
+GET http://localhost:3000/categories/9d41f441-f83c-42c3-8a76-2cd5497d681d HTTP/1.1
 
 ### Create a new task
 POST http://localhost:3000/tasks HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Dua",
-  "description": "kids",
-  "categoryId": "3cc3b27e-4a61-41cb-846b-6b978c5bfe37"
+  "title": "Thailand",
+  "description": "world tour",
+  "categoryId": "8a999858-b770-40db-8e89-cc6e6c2f487c"
 }
 
 
@@ -20,7 +20,7 @@ POST http://localhost:3000/categories HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "bio"
+  "name": "Country"
 }
 
 ### delete a category

@@ -29,7 +29,7 @@ export class TaskService {
 
     try {
       const category = await this.getCategoryById(categoryId);
-
+      // console.log(category)
       const newTask: Task = {
         id,
         title,
