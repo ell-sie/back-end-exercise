@@ -20,6 +20,7 @@ export class CategoriesController {
   @ApiResponse({ status: 201, description: 'The category has been added successfully'})
   @ApiResponse({ status: 500, description: 'Internal server error'})
     @ApiBody({
+      
        type: Category,
        description: 'Json structure for user object',
     })
